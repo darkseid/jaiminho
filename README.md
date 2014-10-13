@@ -1,3 +1,4 @@
+[![Build Status](https://semaphoreapp.com/api/v1/projects/43f91ce9-ff7c-4086-8a27-e98674964dbc/266674/shields_badge.svg)](https://semaphoreapp.com/darkseid/jaiminho)
 # Jaiminho
 
 ## Objetivo
