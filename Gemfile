@@ -43,5 +43,6 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'haml-rails'
 
 group :development, :test do
-  gem 'rspec'
+  gem 'rspec-rails', '~> 3.0.0'
+  gem 'codeclimate-test-reporter'
 end
