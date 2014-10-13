@@ -38,8 +38,10 @@ gem 'spring',        group: :development
 
 gem 'twitter-bootstrap-rails'
 gem 'sidekiq'
-
 # For Sidekiq web
 gem 'sinatra', '>= 1.3.0', :require => nil
-
 gem 'haml-rails'
+
+group :development, :test do
+  gem 'rspec'
+end
