@@ -1,0 +1,23 @@
+= form_for @notification_template, html: { class: "form form-horizontal notification_template" } do |f|
+  .form-group
+    = f.label :name, class: 'control-label'
+    .controls
+      = f.text_field :name, class: 'form-control', required: true
+    = error_span(@notification_template[:name])
+  .form-group
+    = f.label :body, class: 'control-label'
+    .controls
+      = f.text_field :body, class: 'form-control', required: true
+    = error_span(@notification_template[:body])
+  .form-group
+    = f.label :from, class: 'control-label'
+    .controls
+      = f.text_field :from, class: 'form-control', required: true
+    = error_span(@notification_template[:from])
+  .form-group
+    = f.label :to, class: 'control-label'
+    .controls
+      = f.text_field :to, class: 'form-control', required: true
+    = error_span(@notification_template[:to])
+  = f.submit nil,class: 'btn btn-primary'
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), notification_templates_path, :class => 'btn btn-default'
