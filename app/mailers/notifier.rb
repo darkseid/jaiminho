@@ -15,7 +15,7 @@ class Notifier < ActionMailer::Base
 
   private
   def get_template_with_name(template_name)
-    NotificationTemplate.find_by_name(template_name).body
+    template = NotificationTemplate.find_by_name!(template_name).body 
   end
 
   def render(template, data={})
