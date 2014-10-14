@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe NotificationMailer, :type => :mailer do
+RSpec.describe Notifier, :type => :mailer do
   describe "notify" do
-    let(:mail) { NotificationMailer.notify }
+    let(:mail) { Notifier.notify }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Notify")
