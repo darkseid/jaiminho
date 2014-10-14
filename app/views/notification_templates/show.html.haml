@@ -9,7 +9,7 @@
 %p
   %strong= model_class.human_attribute_name(:body) + ':'
   %br
-  = @notification_template.body
+  = @notification_template.body.html_safe
 %p
   %strong= model_class.human_attribute_name(:from) + ':'
   %br
