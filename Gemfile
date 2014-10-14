@@ -47,4 +47,5 @@ group :development, :test do
   gem 'codeclimate-test-reporter'
   gem 'pry'
   gem 'mailcatcher'
+  gem 'shoulda-matchers', require: false
 end
