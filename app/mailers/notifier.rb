@@ -12,7 +12,7 @@ class Notifier < ActionMailer::Base
     validate_input(email_to, template_name)
     template = get_template_with_name(template_name)
     html = render(template, data)
-    mail(to: "rmanoel@estantevirtual.com.br", body: html).deliver!
+    mail(to: email_to, body: html).deliver!
   end
 
   private
