@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  resources :notifications, only: [:create]
+
   mount Sidekiq::Web => '/sidekiq'
   resources :notification_templates
 
