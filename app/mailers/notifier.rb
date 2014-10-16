@@ -10,7 +10,6 @@ class Notifier < ActionMailer::Base
   #
   def notify(email_to, template_name, data={})
     validate_input(email_to, template_name)
-    puts 2
     template = get_template_with_name(template_name)
     html = render(template, data)
     mail(to: "rmanoel@estantevirtual.com.br", body: html).deliver!
