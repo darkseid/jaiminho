@@ -1,9 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Notifier, :type => :mailer do
+
   describe "#notify" do
-
-
 
     context "email_to and template_name are required" do
 
@@ -13,7 +12,7 @@ RSpec.describe Notifier, :type => :mailer do
 
 
       it "throws an ArgumentError if template_name is not informed" do
-        expect {Notifier.notify('email@domain.com', nil)}.to raise_error(ArgumentError) 
+        expect {Notifier.notify('email@domain.com', nil)}.to raise_error(ArgumentError)
       end
 
       it "does not throw an ArgumentError if both are informed" do
