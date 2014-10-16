@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141013160104) do
+ActiveRecord::Schema.define(version: 20141016202819) do
 
   create_table "notification_templates", force: true do |t|
     t.string   "name"
