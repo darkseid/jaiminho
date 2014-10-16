@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
   # TODO: externalizar esse parametro em um arquivo de configuraçao
-  default from: "jaiminho@domain.com"
+  default from: ENV['EMAIL_FROM'] || "jaiminho@domain.com"
   default content_type: "text/html"
 
   # Subject can be set in your I18n file at config/locales/en.yml
