@@ -20,3 +20,11 @@ Ser uma ferramenta completa para o envio de emails.
 - bundle install
 - bundle exec db:create db:migrate
 - bundle exec rails s
+
+### Para enviar emails em DEV
+
+Hoje, utilizamos a GEM MailCatcher. Para conseguir visualizar os emails, basta subir o server SMTP que vem com a gem:
+
+```bundle exec mailcatcher
+
+E depois, abra o navegador no endereco: (http://localhost:1080), para visualizar.

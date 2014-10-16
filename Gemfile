@@ -41,8 +41,12 @@ gem 'sidekiq'
 # For Sidekiq web
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'haml-rails'
+gem 'unicorn'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'codeclimate-test-reporter'
+  gem 'pry'
+  gem 'mailcatcher'
+  gem 'shoulda-matchers', require: false
 end
