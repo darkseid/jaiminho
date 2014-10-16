@@ -6,8 +6,6 @@
     %tr
       %th= model_class.human_attribute_name(:id)
       %th= model_class.human_attribute_name(:name)
-      %th= model_class.human_attribute_name(:from)
-      %th= model_class.human_attribute_name(:to)
       %th= model_class.human_attribute_name(:created_at)
       %th= t ".actions", :default => t("helpers.actions")
   %tbody
@@ -15,9 +13,7 @@
       %tr
         %td= link_to notification_template.id, notification_template_path(notification_template)
         %td= notification_template.name
-        %td= notification_template.from
-        %td= notification_template.to
-        %td= time_ago_in_words(notification_template.created_at)
+        %td=l notification_template.created_at
         %td
           = link_to t(".view", :default => t("helpers.link.view")), notification_template_path(notification_template), class: "btn btn-default btn-xs", target: :blank
           = link_to t(".edit", :default => t("helpers.links.edit")), edit_notification_template_path(notification_template), :class => "btn btn-default btn-xs"

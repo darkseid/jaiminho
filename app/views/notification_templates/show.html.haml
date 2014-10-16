@@ -10,14 +10,6 @@
   %strong= model_class.human_attribute_name(:body) + ':'
   %br
   = @notification_template.body.html_safe
-%p
-  %strong= model_class.human_attribute_name(:from) + ':'
-  %br
-  = @notification_template.from
-%p
-  %strong= model_class.human_attribute_name(:to) + ':'
-  %br
-  = @notification_template.to
 
 
 = link_to t('.back', :default => t("helpers.links.back")), notification_templates_path, :class => 'btn btn-default'
