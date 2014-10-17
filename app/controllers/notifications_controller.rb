@@ -3,7 +3,11 @@ class NotificationsController < ApplicationController
   respond_to :json
 
   def create
-  	Notifier.notify(params[:email_to], params[:template_name])
+    NotifyWorker.perform_async(
+      params[:email_to], 
+      params[:template_name],
+      params[:data])
+
     head :ok
   end
 end
