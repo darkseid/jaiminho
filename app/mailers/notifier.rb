@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-  # TODO: externalizar esse parametro em um arquivo de configuraçao
+
   default from: MAILER_CONFIG["from"]
   default content_type: "text/html"
 
