@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
-  # TODO: externalizar esse parametro em um arquivo de configuraçao
-  default from: "jaiminho@domain.com"
+
+  default from: MAILER_CONFIG["from"]
   default content_type: "text/html"
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -18,12 +18,12 @@ class Notifier < ActionMailer::Base
   private
   def validate_input(email_to, template_name)
     if email_to.blank? || template_name.blank?
-      raise ArgumentError, "you must inform email_to and template_name parameters" 
+      raise ArgumentError, "you must inform email_to and template_name parameters"
     end
   end
 
   def get_template_with_name(template_name)
-    template = NotificationTemplate.find_by_name!(template_name).body 
+    template = NotificationTemplate.find_by_name!(template_name).body
   end
 
   def render(template, data={})

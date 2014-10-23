@@ -1,0 +1,11 @@
+default: &default
+  from: jaiminho@domain.com
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
