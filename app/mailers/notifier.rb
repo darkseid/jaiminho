@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-
+  # TODO: externalizar esse parametro em um arquivo de configuraçao
   default from: MAILER_CONFIG["from"]
   default content_type: "text/html"
 
@@ -18,7 +18,7 @@ class Notifier < ActionMailer::Base
   private
   def validate_input(email_to, template_name)
     if email_to.blank? || template_name.blank?
-      raise ArgumentError, "you must inform email_to and template_name parameters"
+      raise ArgumentError, t("jaiminho.validation")
     end
   end
 

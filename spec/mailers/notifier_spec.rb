@@ -7,16 +7,15 @@ RSpec.describe Notifier, :type => :mailer do
     context "email_to and template_name are required" do
 
       it "throws an ArgumentError if email_to is not informed" do
-        expect {Notifier.notify(nil, 'template_name')}.to raise_error(ArgumentError)
+        expect { Notifier.notify(nil, 'template_name') }.to raise_error(ArgumentError)
       end
 
-
       it "throws an ArgumentError if template_name is not informed" do
-        expect {Notifier.notify('email@domain.com', nil)}.to raise_error(ArgumentError)
+        expect { Notifier.notify('email@domain.com', nil) }.to raise_error(ArgumentError)
       end
 
       it "does not throw an ArgumentError if both are informed" do
-        expect {Notifier.notify('email@domain.com', 'template_name')}.to raise_error(ActiveRecord::RecordNotFound)
+        expect { Notifier.notify('email@domain.com', 'template_name') }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
     end
