@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe NotifierMailer, :type => :mailer do
 
-  describe "#notify" do
+  describe ".notify" do
 
     context "email_to and template_name are required" do
 
@@ -19,20 +19,22 @@ RSpec.describe NotifierMailer, :type => :mailer do
       end
 
     end
-  end
 
-  describe "notify" do
-    let(:mail) { NotifierMailer.notify }
+    context "sends email" do
 
-    xit "renders the headers" do
-      expect(mail.subject).to eq("Notify")
-      expect(mail.to).to eq(["to@example.org"])
-      expect(mail.from).to eq(["from@example.com"])
+      before do
+        NotificationTemplate.create name: "template_name_test", body: "<h1><%= data[:test] %></h1>"
+        @email = NotifierMailer.notify('email@test.com', 'template_name_test', {test: "Text"})
+      end
+
+      it { expect(ActionMailer::Base.deliveries).not_to be_empty }
+
+      it "renders the body" do
+        expect(@email.body.to_s).to match("<h1>Text</h1>")
+      end
+
     end
 
-    xit "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
-    end
   end
 
 end
