@@ -50,3 +50,5 @@ group :development, :test do
   gem 'mailcatcher'
   gem 'shoulda-matchers', require: false
 end
+
+gem 'simplecov', :require => false, :group => :test

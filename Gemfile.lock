@@ -214,6 +214,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda-matchers
   sidekiq
+  simplecov
   sinatra (>= 1.3.0)
   spring
   turbolinks
