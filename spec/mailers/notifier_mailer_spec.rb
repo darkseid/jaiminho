@@ -22,15 +22,18 @@ RSpec.describe NotifierMailer, :type => :mailer do
 
     context "sends email" do
 
+      let!(:email) {
+        NotifierMailer.notify('email@test.com', 'template_name_test', {test: "Text"})
+      }
+
       before do
         NotificationTemplate.create name: "template_name_test", body: "<h1><%= data[:test] %></h1>"
-        @email = NotifierMailer.notify('email@test.com', 'template_name_test', {test: "Text"})
       end
 
       it { expect(ActionMailer::Base.deliveries).not_to be_empty }
 
       it "renders the body" do
-        expect(@email.body.to_s).to match("<h1>Text</h1>")
+        expect(email.body.to_s).to match("<h1>Text</h1>")
       end
 
     end
