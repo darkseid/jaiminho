@@ -38,7 +38,11 @@ RSpec.describe NotifierMailer, :type => :mailer do
         expect(@email.subject).to match "Testing, User"
       end
 
-      it "right list" do
+      it "from correct email" do
+        expect(@email.from).to eq([MAILER_CONFIG["from"]])
+      end
+
+      it "to list right" do
         expect(@email.to).to eq(["email@test.com", "test@email.com"])
       end
 
