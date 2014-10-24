@@ -45,6 +45,6 @@ class NotificationTemplatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_template_params
-      params.require(:notification_template).permit(:name, :body)
+      params.require(:notification_template).permit(:name, :body, :subject)
     end
 end

@@ -26,7 +26,7 @@ RSpec.describe NotifierMailer, :type => :mailer do
         NotifierMailer.notify 'email@test.com', 'template_name_test', {test: "Text"}
       }
 
-      before do
+      before :all do
         NotificationTemplate.create name: "template_name_test", body: "<h1><%= data[:test] %></h1>"
       end
 
