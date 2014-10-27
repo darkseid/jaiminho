@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
   # TODO: externalizar esse parametro em um arquivo de configuraçao
-  default from: "jaiminho@domain.com"
+  default from: ENV['EMAIL_FROM'] || "jaiminho@domain.com"
   default content_type: "text/html"
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -12,7 +12,7 @@ class Notifier < ActionMailer::Base
     validate_input(email_to, template_name)
     template = get_template_with_name(template_name)
     html = render(template, data)
-    mail(to: "rmanoel@estantevirtual.com.br", body: html).deliver!
+    mail(to: email_to, body: html).deliver!
   end
 
   private
