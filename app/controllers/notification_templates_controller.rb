@@ -16,7 +16,7 @@ class NotificationTemplatesController < ApplicationController
   end
 
   def create
-    @notification_template = NotificationTemplate.new(notification_template_params)
+    @notification_template = NotificationTemplate.new notification_template_params
     if @notification_template.save
       redirect_to @notification_template, notice: "Notification template was successfully created."
     else
@@ -25,7 +25,7 @@ class NotificationTemplatesController < ApplicationController
   end
 
   def update
-    if @notification_template.update(notification_template_params)
+    if @notification_template.update notification_template_params
       redirect_to @notification_template, notice: "Notification template was successfully updated."
     else
       render :edit
@@ -38,13 +38,13 @@ class NotificationTemplatesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_notification_template
-      @notification_template = NotificationTemplate.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def notification_template_params
-      params.require(:notification_template).permit(:name, :body, :subject)
-    end
+  def set_notification_template
+    @notification_template = NotificationTemplate.find params[:id]
+  end
+
+  def notification_template_params
+    params.require(:notification_template).permit :name, :body, :subject
+  end
+
 end

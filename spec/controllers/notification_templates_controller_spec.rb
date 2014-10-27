@@ -2,9 +2,6 @@ require "rails_helper"
 
 RSpec.describe NotificationTemplatesController, :type => :controller do
 
-  before :example do
-  end
-
   describe "GET index" do
 
     it "assigns @notification_templates" do
