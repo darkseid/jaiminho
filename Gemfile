@@ -49,6 +49,8 @@ group :development, :test do
   gem 'pry'
   gem 'mailcatcher'
   gem 'shoulda-matchers', require: false
+  gem 'factory_girl_rails', :require => false
+  gem 'faker'
 end
 
 gem 'simplecov', :require => false, :group => :test
