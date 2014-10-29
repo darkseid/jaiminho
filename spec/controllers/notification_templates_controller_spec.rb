@@ -80,7 +80,7 @@ RSpec.describe NotificationTemplatesController, :type => :controller do
       context "with notification template saved" do
 
         before do
-          allow(assigns(:notification_template)).to receive(:save).and_return true
+          allow(notification_template).to receive(:save).and_return true
           post :create, notification_template: {body: "body", name: "name", subject: "subject"}
         end
 
@@ -106,7 +106,7 @@ RSpec.describe NotificationTemplatesController, :type => :controller do
       context "with invalid attributes" do
 
         before do
-          allow(assigns(:notification_template)).to receive(:save).and_return true
+          allow(notification_template).to receive(:save).and_return true
         end
 
         it "does not save save the new notification template in database" do
