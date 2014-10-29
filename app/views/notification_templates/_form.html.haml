@@ -3,11 +3,16 @@
     = f.label :name, class: "control-label"
     .controls
       = f.text_field :name, class: "form-control", required: true
-    = error_span(@notification_template[:name])
+    = error_span @notification_template[:name]
   .form-group
     = f.label :body, class: "control-label"
     .controls
       = f.text_field :body, class: "form-control", required: true
-    = error_span(@notification_template[:body])
-  = f.submit nil,class: 'btn btn-primary'
-  = link_to t('.cancel', :default => t("helpers.links.cancel")), notification_templates_path, :class => 'btn btn-default'
+    = error_span @notification_template[:body]
+  .form-group
+    = f.label :subject, class: "control-label"
+    .controls
+      = f.text_field :subject, class: "form-control", required: true
+    = error_span @notification_template[:subject]
+  = f.submit nil, class: "btn btn-primary"
+  = link_to t(".cancel", default: t("helpers.links.cancel")), notification_templates_path, class: "btn btn-default"

@@ -1,0 +1,3 @@
+en:
+  jaiminho:
+    validation: you must inform email_to and template_name parameters

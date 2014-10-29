@@ -7,6 +7,10 @@
   %br
   = @notification_template.name
 %p
+  %strong= model_class.human_attribute_name(:subject) + ':'
+  %br
+  = @notification_template.subject
+%p
   %strong= model_class.human_attribute_name(:body) + ':'
   %br
   = @notification_template.body.html_safe
