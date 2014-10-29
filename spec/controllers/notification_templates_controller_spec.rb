@@ -164,5 +164,25 @@ RSpec.describe NotificationTemplatesController, :type => :controller do
 
   end
 
+  describe "DELETE" do
+
+    describe "#destroy" do
+
+      before do
+        allow(NotificationTemplate).to receive(:find).with(notification_template.id.to_s).and_return notification_template
+        delete :destroy, id: notification_template
+      end
+
+      it "redirects to notification_templates#index" do
+        expect(response).to redirect_to notification_templates_url
+      end
+
+      it "deletes the notification template" do
+        expect(notification_template.new_record?).to eq true
+      end
+
+    end
+
+  end
 
 end
