@@ -11,7 +11,7 @@ class NotifierMailer < ActionMailer::Base
     subject = render template.subject, email_report.data
     mail(
       to: email_report.email_to, body: html, subject: subject,
-      reply_to: email_report.reply_to, cc: email_report.cc, bcc: email_report.bbc
+      reply_to: email_report.reply_to, cc: email_report.cc, bcc: email_report.bcc
     ).deliver
     set_success_to_email_report email_report
   end
