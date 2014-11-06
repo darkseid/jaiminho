@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :notifications, only: [:create]
 
   mount Sidekiq::Web => '/sidekiq'
-  resources :notification_templates
+  resources :email_templates
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

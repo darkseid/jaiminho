@@ -4,10 +4,10 @@ class NotifierMailer < ActionMailer::Base
   default content_type: "text/html"
 
   def notify(email_to, template_name, data={})
-    validate_input(email_to, template_name)
-    template = get_template_with_name(template_name)
-    html = render(template.body, data)
-    subject = render(template.subject, data)
+    validate_input email_to, template_name
+    template = get_template_with_name template_name
+    html = render template.body, data
+    subject = render template.subject, data
     mail(to: email_to, body: html, subject: subject).deliver
   end
 
@@ -19,7 +19,7 @@ class NotifierMailer < ActionMailer::Base
   end
 
   def get_template_with_name(template_name)
-    template = NotificationTemplate.find_by_name!(template_name)
+    template = EmailTemplate.find_by_name! template_name
   end
 
   def render(template, data={})
