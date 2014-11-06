@@ -47,6 +47,10 @@ RSpec.describe NotifierMailer, :type => :mailer do
         expect(@email.to).to eq(["email@test.com", "test@email.com"])
       end
 
+      it "change email_report status when email is sent" do
+        expect(email_report.status).to eq("success")
+      end
+
     end
 
   end
