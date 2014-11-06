@@ -4,23 +4,46 @@ RSpec.describe NotificationsController, :type => :controller do
 
   describe "POST create" do
 
-    let(:email_report) {
-      build(:email_report)
-    }
+    context "with valid params" do
+      let(:email_report) {
+        build(:email_report)
+      }
 
-    before do
-      allow_any_instance_of(NotificationsController).to receive(:create_email_report).and_return(email_report)
-      post :create, email_report: email_report.attributes
+      before do
+        allow_any_instance_of(NotificationsController).to receive(:create_email_report).and_return(email_report)
+        post :create, email_report: email_report.attributes, format: :json
+      end
+
+      it "returns http success" do
+        expect(response).to be_success
+      end
+
+      it "save email report" do
+        expect(assigns(:email_report).attributes).to eql(email_report.attributes)
+      end
+
+      it "render create template" do
+        expect(response).to render_template :create
+      end
+
     end
 
-    it "returns http success" do
-      expect(response).to be_success
-    end
+    context "with invalid params" do
+      
+      let(:email_report) {
+        build(:invalid_email_report)
+      }
 
-    it "save email report" do
-      expect(assigns(:email_report).attributes).to eql(email_report.attributes)
-    end
+      before do
+        allow_any_instance_of(NotificationsController).to receive(:create_email_report).and_return(email_report)
+        post :create, email_report: email_report.attributes, format: :json
+      end
 
+      it "render template error" do
+        expect(response).to render_template :error
+      end
+
+    end
   end
 
 end

@@ -1,7 +1,7 @@
 class NotifyWorker
   include Sidekiq::Worker
 
-  def perform(email_to, template_name, data)
-    NotifierMailer.notify(email_to, template_name, data)
+  def perform(email_report_id)
+    NotifierMailer.notify(email_report_id)
   end
 end

@@ -4,28 +4,29 @@ RSpec.describe NotifierMailer, :type => :mailer do
 
   describe ".notify" do
 
-    context "email_to and template_name are required" do
+    context "email_report_id is required" do
 
-      it "throws an ArgumentError if email_to is not informed" do
-        expect { NotifierMailer.notify(nil, "template_name") }.to raise_error ArgumentError
+      it "throws an ArgumentError if email_report_id is not informed" do
+        expect { NotifierMailer.notify(nil) }.to raise_error ArgumentError
       end
 
-      it "throws an ArgumentError if template_name is not informed" do
-        expect { NotifierMailer.notify("email@domain.com", nil) }.to raise_error ArgumentError
-      end
-
-      it "does not throw an ArgumentError if both are informed" do
-        expect { NotifierMailer.notify("email@domain.com", "template_name") }.to raise_error ActiveRecord::RecordNotFound
+      it "does not throw an ArgumentError if email_report_id is informed" do
+        expect { NotifierMailer.notify(9999999) }.to raise_error ActiveRecord::RecordNotFound
       end
 
     end
 
     context "sends email" do
 
+      let(:email_report) {
+        build(:email_report_with_id, template_name: 'template_name_test', data: {test: "Text", subject: "User"}, email_to: ["email@test.com", "test@email.com"])
+      }
+
       before :example do
         notification_template = NotificationTemplate.new name: "template_name_test", body: "<h1><%= data[:test] %></h1>", subject: "Testing, <%= data[:subject] %>"
         allow_any_instance_of(NotifierMailer).to receive(:get_template_with_name).and_return notification_template
-        @email = NotifierMailer.notify ["email@test.com", "test@email.com"], "template_name_test", {test: "Text", subject: "User"}
+        allow(EmailReport).to receive(:find).and_return email_report
+        @email = NotifierMailer.notify email_report.id
       end
 
       it { expect(ActionMailer::Base.deliveries).not_to be_empty }

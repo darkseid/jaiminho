@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023214744) do
+ActiveRecord::Schema.define(version: 20141103190649) do
+
+  create_table "email_reports", force: true do |t|
+    t.string   "email_to"
+    t.string   "template_name"
+    t.text     "data"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "notification_templates", force: true do |t|
     t.string   "name"
