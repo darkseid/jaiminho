@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103190649) do
+ActiveRecord::Schema.define(version: 20141106203617) do
 
   create_table "email_reports", force: true do |t|
     t.string   "email_to"
@@ -20,14 +20,17 @@ ActiveRecord::Schema.define(version: 20141103190649) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "reply_to"
+    t.string   "cc"
+    t.string   "bcc"
   end
 
-  create_table "notification_templates", force: true do |t|
+  create_table "email_templates", force: true do |t|
     t.string   "name"
     t.text     "body"
+    t.string   "subject"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "subject"
   end
 
 end

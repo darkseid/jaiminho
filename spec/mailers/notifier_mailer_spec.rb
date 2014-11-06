@@ -23,7 +23,7 @@ RSpec.describe NotifierMailer, :type => :mailer do
       }
 
       before :example do
-        notification_template = NotificationTemplate.new name: "template_name_test", body: "<h1><%= data[:test] %></h1>", subject: "Testing, <%= data[:subject] %>"
+        notification_template = EmailTemplate.new name: "template_name_test", body: "<h1><%= data[:test] %></h1>", subject: "Testing, <%= data[:subject] %>"
         allow_any_instance_of(NotifierMailer).to receive(:get_template_with_name).and_return notification_template
         allow(EmailReport).to receive(:find).and_return email_report
         @email = NotifierMailer.notify email_report.id
