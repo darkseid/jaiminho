@@ -18,7 +18,8 @@ class EmailTemplatesController < ApplicationController
   def create
     @email_template = EmailTemplate.new email_template_params
     if @email_template.save
-      redirect_to @email_template, notice: "Email template was successfully created."
+      redirect_to @email_template,
+                  notice: 'Email template was successfully created.'
     else
       render :new
     end
@@ -26,7 +27,8 @@ class EmailTemplatesController < ApplicationController
 
   def update
     if @email_template.update email_template_params
-      redirect_to @email_template, notice: "Email template was successfully updated."
+      redirect_to @email_template,
+                  notice: 'Email template was successfully updated.'
     else
       render :edit
     end
@@ -34,7 +36,8 @@ class EmailTemplatesController < ApplicationController
 
   def destroy
     @email_template.destroy
-    redirect_to email_templates_url, notice: "Email template was successfully destroyed."
+    redirect_to email_templates_url,
+                notice: 'Email template was successfully destroyed.'
   end
 
   private
@@ -43,9 +46,7 @@ class EmailTemplatesController < ApplicationController
     @email_template = EmailTemplate.find params[:id]
   end
 
-
   def email_template_params
     params.require(:email_template).permit :name, :body, :subject
   end
-
 end

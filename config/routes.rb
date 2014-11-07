@@ -8,12 +8,8 @@ Rails.application.routes.draw do
 
   resources :email_templates
 
-  namespace :api, defaults: { format: "json" } do
-    resources :emails do
-      collection do
-        post "forward"
-      end
-    end
+  namespace :api, defaults: { format: 'json' } do
+    resources :emails
   end
 
 end

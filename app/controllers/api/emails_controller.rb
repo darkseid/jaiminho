@@ -1,11 +1,8 @@
 module Api
   class EmailsController < Api::ApiController
-
-    def forward
+    def create
       @email_report = create_email_report
-      if !@email_report.save
-        error 400, "Could not save email report."
-      end
+      error 400, 'Could not save email report.' unless @email_report.save
       @job_id = send_job(@email_report.id)
     end
 
@@ -16,12 +13,13 @@ module Api
     end
 
     def email_report_params
-      params.require(:email_report).permit :email_to, :template_name, :data, :reply_to, :cc, :bcc
+      params.require(:email_report).permit :email_to,
+                                           :template_name,
+                                           :data, :reply_to, :cc, :bcc
     end
 
     def send_job(email_report_id)
       NotifyWorker.perform_async email_report_id
     end
-
   end
 end
