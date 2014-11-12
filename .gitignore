@@ -16,3 +16,6 @@
 /tmp
 
 coverage/
+*.swp
+.DS_Store
+.rubocop.yml

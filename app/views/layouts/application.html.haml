@@ -28,8 +28,7 @@
           = link_to "Jaiminho", root_path, class: "navbar-brand"
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
-            %li= link_to "Templates", notification_templates_path
-            %li= link_to "Estatísticas", "/path2"
+            %li= link_to "Email Templates", email_templates_path
             %li= link_to 'Monitoring', sidekiq_web_path, target: "_blank"
 
     .container
