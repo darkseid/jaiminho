@@ -1,5 +1,9 @@
+require 'docs/api/emails/create_doc'
+
 module Api
   class EmailsController < Api::ApiController
+
+    create_doc
     def create
       @email_report = create_email_report
       error 400, 'Could not save email report.' unless @email_report.save
@@ -21,5 +25,6 @@ module Api
     def send_job(email_report_id)
       NotifyWorker.perform_async email_report_id
     end
+
   end
 end

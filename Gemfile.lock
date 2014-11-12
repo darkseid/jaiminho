@@ -27,6 +27,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    apipie-rails (0.2.6)
+      json
     arel (5.0.1.20140414130214)
     aws-sdk (1.57.0)
       aws-sdk-v1 (= 1.57.0)
@@ -216,6 +218,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apipie-rails
   aws-sdk
   codeclimate-test-reporter
   factory_girl_rails
