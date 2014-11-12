@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106203617) do
+ActiveRecord::Schema.define(version: 20141112191325) do
 
   create_table "email_reports", force: true do |t|
     t.string   "email_to"
-    t.string   "template_name"
+    t.integer  "email_template_id",             null: false
     t.text     "data"
-    t.string   "status"
+    t.integer  "status",            default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "reply_to"

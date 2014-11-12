@@ -6,7 +6,7 @@ class NotifierMailer < ActionMailer::Base
     validate_input email_report_id
 
     email_report = EmailReport.find email_report_id
-    template = EmailTemplate.find_by_name! email_report.template_name
+    template = email_report.email_template
 
     body = template.render_body email_report.data
     subject = template.render_subject email_report.data
