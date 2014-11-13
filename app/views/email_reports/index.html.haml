@@ -1,0 +1,37 @@
+- model_class = EmailReport
+
+.page-header
+  %h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+
+.filter
+  %form{action: email_reports_path, method: 'GET'}
+    %label
+      Filter by:
+
+    %select{name: 'status'}
+      %option{value: ''}= '-- choose a status --'
+      - model_class.statuses.each do |status, value|
+        %option{value: value, selected: params[:status] == value.to_s}= status.titleize
+
+    %select{name: 'email_template_id'}
+      %option{value: ''}= '-- choose a template name --'
+      - @email_templates.each do |email_template|
+        %option{value: email_template.id, selected: params[:email_template_id] == email_template.id.to_s}= email_template.name
+
+    %input.js-btn-filter{type: 'submit', value: 'Go'}
+
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:email_to)
+      %th= model_class.human_attribute_name(:template_name)
+      %th= model_class.human_attribute_name(:status)
+      %th= model_class.human_attribute_name(:created_at)
+  %tbody
+    - @email_reports.each do |email_report|
+      %tr
+        %td= email_report.email_to
+        %td= email_report.email_template.name
+        %td= email_report.status.titleize
+        %td=l email_report.created_at

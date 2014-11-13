@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   resources :email_templates
+  resources :email_reports, only: [:index]
 
   namespace :api, defaults: { format: 'json' } do
     resources :emails
