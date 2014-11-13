@@ -1,8 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe EmailTemplate, type: :model do
 
-  describe 'validations' do
+  describe "validations" do
     it { should validate_uniqueness_of :name }
     it { should validate_presence_of :name }
     it { should validate_presence_of :body }
@@ -10,22 +10,19 @@ RSpec.describe EmailTemplate, type: :model do
     it { should validate_presence_of :subject }
   end
 
-  it 'inherits from NotificationTemplate' do
+  it "inherits from NotificationTemplate" do
     expect(EmailTemplate.new).to be_a NotificationTemplate
   end
 
-  describe 'when name is already taken' do
+  describe "when name is already taken" do
 
-    before do
-      @email_template = EmailTemplate.create(name: 'NAME',
-                                             subject: 'SUBJECT',
-                                             body: 'BODY')
+    let :email_template do
+      EmailTemplate.create(name: "NAME", subject: "SUBJECT", body: "BODY")
     end
 
-    it 'cannot be saved' do
-      duplicated = @email_template.dup
-      expect(duplicated.save).to eq(false)
+    it "cannot be saved" do
+      duplicated = email_template.dup
+      expect(duplicated.save).to be false
     end
   end
-
 end

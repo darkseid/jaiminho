@@ -15,7 +15,7 @@ class EmailReport < ActiveRecord::Base
 
   %w(status).each do |action|
     define_singleton_method("group_by_#{action}") do ||
-      select('*').group(action)
+      select("*").group(action)
     end
   end
 end

@@ -19,7 +19,7 @@ RSpec.describe NotifierMailer, :type => :mailer do
     context "sends email" do
 
       let(:email_template) {
-        build(:email_template, name: 'template_name_test', body: "<h1><%= data[:test] %></h1>", subject: "Testing, <%= data[:subject] %>")
+        build(:email_template, name: "template_name_test", body: "<h1><%= data[:test] %></h1>", subject: "Testing, <%= data[:subject] %>")
       }
 
       let(:email_report) {

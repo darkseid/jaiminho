@@ -1,6 +1,6 @@
 class NotifierMailer < ActionMailer::Base
-  default from: MAILER_CONFIG['from']
-  default content_type: 'text/html'
+  default from: MAILER_CONFIG["from"]
+  default content_type: "text/html"
 
   def notify(email_report_id)
     validate_input email_report_id
@@ -20,7 +20,7 @@ class NotifierMailer < ActionMailer::Base
   private
 
   def validate_input(email_report_id)
-    fail ArgumentError, t('jaiminho.validation') \
+    fail ArgumentError, t("jaiminho.validation") \
       unless email_report_id.is_a? Integer
   end
 end
