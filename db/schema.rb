@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20141112191325) do
 
   create_table "email_reports", force: true do |t|
     t.string   "email_to"
-    t.integer  "email_template_id",             null: false
     t.text     "data"
     t.integer  "status",            default: 0, null: false
     t.datetime "created_at"
@@ -23,6 +22,7 @@ ActiveRecord::Schema.define(version: 20141112191325) do
     t.string   "reply_to"
     t.string   "cc"
     t.string   "bcc"
+    t.integer  "email_template_id",             null: false
   end
 
   create_table "email_templates", force: true do |t|
