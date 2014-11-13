@@ -18,13 +18,14 @@ RSpec.describe NotifierMailer, :type => :mailer do
 
     context "sends email" do
 
-      let(:email_report) {
-        build(:email_report_with_id, template_name: 'template_name_test', data: {test: "Text", subject: "User"}, email_to: ["email@test.com", "test@email.com"])
+      let(:email_template) {
+        build(:email_template, name: "template_name_test", body: "<h1><%= data[:test] %></h1>", subject: "Testing, <%= data[:subject] %>")
       }
 
-      let(:email_template) {
-        build(:email_template, name: 'template_name_test', body: "<h1><%= data[:test] %></h1>", subject: "Testing, <%= data[:subject] %>")
+      let(:email_report) {
+        build(:email_report_with_id, email_template: email_template, data: {test: "Text", subject: "User"}, email_to: ["email@test.com", "test@email.com"])
       }
+
 
       before :example do
         allow(EmailTemplate).to receive(:find_by_name!).and_return email_template

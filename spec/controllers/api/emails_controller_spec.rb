@@ -18,29 +18,41 @@ RSpec.describe Api::EmailsController, type: :controller do
       end
 
       it "save email report" do
-        expect(assigns(:email_report).attributes).to \
-          eql email_report.attributes
+        expect(assigns(:email_report).save).to be true
       end
 
       it "render create template" do
         expect(response).to render_template :create
       end
+
     end
 
     context "with invalid params" do
 
-      let(:email_report) { build(:invalid_email_report) }
-
-      before do
-        allow_any_instance_of(Api::EmailsController).to \
-          receive(:create_email_report).and_return(email_report)
-        post :create, email_report: email_report.attributes, format: :json
-      end
+      let(:email_report) { build :invalid_email_report }
+      let(:email_report_unexisting_template) { build :email_report, email_template: nil }
 
       it "render template error" do
+        allow_any_instance_of(Api::EmailsController).to \
+          receive(:create_email_report).and_return(email_report)
+
+        post :create, email_report: email_report.attributes, format: :json
+
+        expect(response).to render_template :error
+      end
+
+      it "render template error with unexisting email_template_id" do
+        allow_any_instance_of(Api::EmailsController).to \
+          receive(:create_email_report) \
+          .and_return email_report_unexisting_template
+
+        post :create, email_report: email_report_unexisting_template.attributes,
+                      format: :json
         expect(response).to render_template :error
       end
 
     end
+
   end
+
 end

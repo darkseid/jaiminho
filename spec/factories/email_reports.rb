@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :email_report do
     email_to Faker::Internet.email
-    template_name Faker::Internet.user_name
+    association :email_template, factory: :email_template
     data {}
     status "success"
 

@@ -15,7 +15,6 @@
     = favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72'
     = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
-    = javascript_include_tag "application"
 
 
   %body
@@ -46,3 +45,6 @@
               %li= link_to "Link 3", "/path3"
       %footer
         %p &copy; Jaiminho 2014
+
+    = javascript_include_tag 'https://code.jquery.com/ui/1.11.2/jquery-ui.min.js'
+    = javascript_include_tag "application"
