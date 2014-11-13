@@ -13,6 +13,14 @@ class EmailReport < ActiveRecord::Base
     save
   end
 
+  def self.duplicate(id)
+    email_report_old = find(id)
+    new_email_report = email_report_old.dup
+    new_email_report.status = :sending
+    new_email_report.save
+    new_email_report
+  end
+
   %w(status).each do |action|
     define_singleton_method("group_by_#{action}") do ||
       select("*").group(action)

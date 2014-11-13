@@ -54,4 +54,36 @@ RSpec.describe Api::EmailsController, type: :controller do
       end
     end
   end
+
+  describe "POST retry email_report" do
+
+    let(:email_report) do
+      build(:email_report_with_id, email_to: "SHOULD_BE_DUPLICATED")
+    end
+
+    before do
+      allow_any_instance_of(Api::EmailsController).to \
+        receive(:send_job).and_return("JOB_ID")
+      allow(EmailReport).to receive(:duplicate).and_return email_report
+      post :retry, id: email_report.id, format: :json
+    end
+
+    context "with valid email_report" do
+      it "returns http success" do
+        expect(response).to be_success
+      end
+
+      it "should call duplicate method from EmailReport" do
+        expect(EmailReport).to have_received(:duplicate)
+      end
+
+      it "render retry template" do
+        expect(response).to render_template :retry
+      end
+
+      it "returns @job_id to view" do
+        expect(assigns(:job_id)).to eq("JOB_ID")
+      end
+    end
+  end
 end

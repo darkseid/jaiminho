@@ -6,6 +6,11 @@ module Api
       @job_id = send_job(@email_report.id)
     end
 
+    def retry
+      @email_report = EmailReport.duplicate params[:id]
+      @job_id = send_job(@email_report.id)
+    end
+
     private
 
     def create_email_report
