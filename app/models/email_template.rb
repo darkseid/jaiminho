@@ -1,6 +1,5 @@
 class EmailTemplate < NotificationTemplate
   validates :subject, presence: true
-
   has_many :email_reports
 
   %w(subject body).each do |action|
