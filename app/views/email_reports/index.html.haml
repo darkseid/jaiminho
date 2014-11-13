@@ -16,7 +16,7 @@
     %select{name: 'email_template_id'}
       %option{value: ''}= '-- choose a template name --'
       - @email_templates.each do |email_template|
-        %option{value: email_template.id, selected: params[:template_name] == email_template.name}= email_template.name
+        %option{value: email_template.id, selected: params[:email_template_id] == email_template.id.to_s}= email_template.name
 
     %input.js-btn-filter{type: 'submit', value: 'Go'}
 
@@ -28,7 +28,6 @@
       %th= model_class.human_attribute_name(:template_name)
       %th= model_class.human_attribute_name(:status)
       %th= model_class.human_attribute_name(:created_at)
-      %th= t ".actions", :default => t("helpers.actions")
   %tbody
     - @email_reports.each do |email_report|
       %tr
@@ -36,5 +35,3 @@
         %td= email_report.email_template.name
         %td= email_report.status.titleize
         %td=l email_report.created_at
-        %td
-          = link_to t(".view", :default => t("helpers.link.view")), email_reports_path(email_report), class: "btn btn-default btn-xs", target: :blank
