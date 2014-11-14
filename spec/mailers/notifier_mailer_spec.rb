@@ -19,13 +19,12 @@ RSpec.describe NotifierMailer, :type => :mailer do
     context "sends email" do
 
       let(:email_template) {
-        build(:email_template, name: "template_name_test", body: "<h1><%= data[:test] %></h1>", subject: "Testing, <%= data[:subject] %>")
+        build :email_template, name: "template_name_test", body: "<h1><%= data[:test] %></h1>", subject: "Testing, <%= data[:subject] %>"
       }
 
       let(:email_report) {
-        build(:email_report_with_id, email_template: email_template, data: {test: "Text", subject: "User"}, email_to: ["email@test.com", "test@email.com"])
+        build :email_report, id: 0, email_template: email_template, data: {test: "Text", subject: "User"}, email_to: ["email@test.com", "test@email.com"]
       }
-
 
       before :example do
         allow(EmailTemplate).to receive(:find_by_name!).and_return email_template
@@ -44,15 +43,15 @@ RSpec.describe NotifierMailer, :type => :mailer do
       end
 
       it "from correct email" do
-        expect(@email.from).to eq([MAILER_CONFIG["from"]])
+        expect(@email.from).to eq [MAILER_CONFIG["from"]]
       end
 
       it "to list right" do
-        expect(@email.to).to eq(["email@test.com", "test@email.com"])
+        expect(@email.to).to eq ["email@test.com", "test@email.com"]
       end
 
       it "change email_report status when email is sent" do
-        expect(email_report.status).to eq("success")
+        expect(email_report.status).to match "success"
       end
 
     end

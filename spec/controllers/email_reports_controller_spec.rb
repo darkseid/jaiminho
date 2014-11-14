@@ -3,12 +3,13 @@ require "rails_helper"
 RSpec.describe EmailReportsController, type: :controller do
   describe "GET #index" do
 
+    let(:email_report_1) { create(:email_report, created_at: Time.now - 10) }
+    let(:email_report_2) { create(:email_report, created_at: Time.now, status: EmailReport.statuses[:failed]) }
+
     context "with populated database" do
-      let(:email_report_1) { build(:email_report, created_at: Time.now - 10) }
-      let(:email_report_2) { build(:email_report, created_at: Time.now) }
 
       before do
-        allow(EmailReport).to receive(:filter) \
+        allow(EmailReport).to receive(:where) \
           .and_return [email_report_1, email_report_2]
       end
 
@@ -19,31 +20,28 @@ RSpec.describe EmailReportsController, type: :controller do
 
       it "render an array with email_reports ordered desc by created_at" do
         get :index
-        expect(assigns(:email_reports)).to eq [email_report_2, email_report_1]
-      end
-
-      it "render email_report with filter by status and template_name" do
-        get :index, status: "STATUS", email_template_id: "TEMPLATE"
-        params = { status: "STATUS", email_template_id: "TEMPLATE" }
-        expect(EmailReport).to have_received(:filter).with(params)
-      end
-
-      it "render email_report with filter by status only" do
-        get :index, status: "STATUS", wrong_param: "WRONG"
-        params = { status: "STATUS" }
-        expect(EmailReport).to have_received(:filter).with(params)
-      end
-
-      it "render email_report with filter by template_name only" do
-        get :index, email_template_id: "TEMPLATE", wrong_param: "WRONG"
-        params = { email_template_id: "TEMPLATE" }
-        expect(EmailReport).to have_received(:filter).with(params)
-      end
-
-      it "render email_report getting only wrong params and with no filter" do
-        get :index, wrong_param1: "TEMPLATE", wrong_param2: "TEMPLATE2"
-        expect(EmailReport).to have_received(:filter).with({})
+        expect(assigns :email_reports).to eq [email_report_2, email_report_1]
       end
     end
+
+    context "with params to filter" do
+      before do
+        @email_report = create(:email_report)
+      end
+
+      it "returns email_reports with filter" do
+        get :index, status: EmailReport.statuses[:success]
+        expect(assigns(:email_reports)).to eq [@email_report]
+      end
+    end
+
+    context "without params to filter" do
+      it "does not returns any email_report" do
+        get :index, status: EmailReport.statuses[:pending]
+        expect(assigns(:email_reports)).to eq []
+      end
+    end
+
   end
+
 end

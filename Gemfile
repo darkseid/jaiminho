@@ -53,6 +53,10 @@ group :development, :test do
   gem 'faker'
 end
 
+group :test do
+  gem 'database_cleaner'
+end
+
 gem 'simplecov', :require => false, :group => :test
 gem 'aws-sdk'
 
