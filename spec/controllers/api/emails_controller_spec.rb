@@ -57,32 +57,42 @@ RSpec.describe Api::EmailsController, type: :controller do
 
   describe "POST retry email_report" do
 
-    let(:email_report) do
-      build(:email_report_with_id, email_to: "SHOULD_BE_DUPLICATED")
+    let(:email_report_0) do
+      build(:email_report_with_id)
     end
 
-    before do
-      allow_any_instance_of(Api::EmailsController).to \
-        receive(:send_job).and_return("JOB_ID")
-      allow(EmailReport).to receive(:duplicate).and_return email_report
-      post :retry, id: email_report.id, format: :json
+    let(:email_report_1) do
+      build(:email_report_with_id)
     end
 
-    context "with valid email_report" do
+    let(:email_report_2) do
+      build(:email_report_with_id)
+    end
+
+    context "with valid params" do
+
+      before do
+        allow_any_instance_of(Api::EmailsController).to \
+          receive(:send_job).and_return("JOB_ID")
+        allow(EmailReport).to receive(:duplicate).and_return(email_report_2)
+        post :retry, ids: [email_report_0.id, email_report_1.id], \
+                     format: :json
+      end
+
       it "returns http success" do
         expect(response).to be_success
       end
 
       it "should call duplicate method from EmailReport" do
-        expect(EmailReport).to have_received(:duplicate)
+        expect(EmailReport).to have_received(:duplicate).twice
       end
 
       it "render retry template" do
         expect(response).to render_template :retry
       end
 
-      it "returns @job_id to view" do
-        expect(assigns(:job_id)).to eq("JOB_ID")
+      it "returns @email_reports to view" do
+        expect(assigns(:job_ids)).to match %w(JOB_ID JOB_ID)
       end
     end
   end

@@ -7,8 +7,11 @@ module Api
     end
 
     def retry
-      @email_report = EmailReport.duplicate params[:id]
-      @job_id = send_job(@email_report.id)
+      @job_ids = []
+      email_retry_params.each do |id|
+        email_report = EmailReport.duplicate id
+        @job_ids.push(send_job(email_report.id))
+      end
     end
 
     private
@@ -18,6 +21,10 @@ module Api
       email_template = EmailTemplate.find_by_name template_name
       email_report_params[:email_template] = email_template
       EmailReport.create email_report_params
+    end
+
+    def email_retry_params
+      params.require(:ids)
     end
 
     def email_report_params

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     resources :emails
-    post "emails/:id/retry", to: 'emails#retry'
+    post "emails/batch/retry", to: 'emails#retry'
   end
 
 end

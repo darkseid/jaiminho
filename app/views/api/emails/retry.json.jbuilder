@@ -1,3 +1,3 @@
 json.email_report do
-  json.job_id @job_id
+  json.job_ids @job_ids
 end
