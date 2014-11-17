@@ -43,7 +43,7 @@ RSpec.describe EmailReportsController, type: :controller do
       end
 
       it "does not returns any email_report with non-valid status given" do
-        get :index, status: EmailReport.statuses[:pending]
+        get :index, status: 99
         expect(assigns(:email_reports)).to eq []
       end
     end
