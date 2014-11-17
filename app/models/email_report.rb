@@ -7,7 +7,7 @@ class EmailReport < ActiveRecord::Base
 
   def self.get_by_status_and_email_template_id(status: nil, email_template_id: nil)
     criteria = build_criteria(status: status, email_template_id: email_template_id)
-    where(criteria)
+    order(created_at: :desc).where(criteria)
   end
 
   def mark_as_successful
