@@ -9,10 +9,4 @@ class EmailReport < ActiveRecord::Base
     @status = :success
     save
   end
-
-  %w(status).each do |action|
-    define_singleton_method("group_by_#{action}") do ||
-      select("*").group(action)
-    end
-  end
 end
