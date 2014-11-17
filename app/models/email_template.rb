@@ -8,4 +8,8 @@ class EmailTemplate < NotificationTemplate
       ERB.new(send(action)).result(binding).chomp
     end
   end
+
+  def self.availables
+    EmailTemplate.all
+  end
 end
