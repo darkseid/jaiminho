@@ -17,6 +17,14 @@ RSpec.describe EmailReportsController, type: :controller do
         get :index
         expect(response).to render_template :index
       end
+    end
+
+    context "without params status and template_name" do
+
+      before do
+        allow(EmailReport).to receive(:where) \
+          .and_return [email_report_1, email_report_2]
+      end
 
       it "render an array with email_reports ordered desc by created_at" do
         get :index
@@ -24,24 +32,31 @@ RSpec.describe EmailReportsController, type: :controller do
       end
     end
 
-    context "with params to filter" do
+    context "with status param given" do
       before do
         @email_report = create(:email_report)
       end
 
-      it "returns email_reports with filter" do
+      it "returns only email_reports with success status" do
         get :index, status: EmailReport.statuses[:success]
         expect(assigns(:email_reports)).to eq [@email_report]
       end
-    end
 
-    context "without params to filter" do
-      it "does not returns any email_report" do
+      it "does not returns any email_report with non-valid status given" do
         get :index, status: EmailReport.statuses[:pending]
         expect(assigns(:email_reports)).to eq []
       end
     end
 
+    context "with email_template_id param given" do
+      let(:email_report){ create(:email_report) }
+      let(:email_template){ email_report.email_template }
+
+      it "return only email_reports with given email_template_id" do
+        get :index, email_template_id: email_template.id
+        expect(assigns(:email_reports)).to eq [email_report]
+      end
+    end
   end
 
 end
