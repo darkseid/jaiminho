@@ -2,6 +2,10 @@ require "rails_helper"
 
 RSpec.describe EmailReport, type: :model do
 
+  describe "api" do
+    it { expect(EmailReport).to respond_to :get_by_status_and_email_template_id  }
+  end
+
   describe "validations" do
 
     it { should validate_presence_of :email_to }

@@ -6,14 +6,13 @@ class NotifierMailer < ActionMailer::Base
     validate_input email_report_id
 
     email_report = EmailReport.find email_report_id
-    template = email_report.email_template
+    email_template = email_report.email_template
 
-    body = template.render_body email_report.data
-    subject = template.render_subject email_report.data
+    renderer = EmailTemplateRender.new(email_template, email_report.data)
 
-    mail(to: email_report.email_to, body: body, subject: subject,
-         reply_to: email_report.reply_to, cc: email_report.cc,
-         bcc: email_report.bcc).deliver
+    mail(to: email_report.email_to, body: renderer.body,
+         subject: renderer.subject, reply_to: email_report.reply_to,
+         cc: email_report.cc, bcc: email_report.bcc).deliver
     email_report.mark_as_successful
   end
 

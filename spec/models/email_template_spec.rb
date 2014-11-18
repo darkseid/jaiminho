@@ -2,6 +2,10 @@ require "rails_helper"
 
 RSpec.describe EmailTemplate, type: :model do
 
+  describe "api" do
+    it { expect(EmailTemplate).to respond_to :availables }
+  end
+
   describe "validations" do
     it { should validate_uniqueness_of :name }
     it { should validate_presence_of :name }
