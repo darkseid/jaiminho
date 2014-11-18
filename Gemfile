@@ -8,14 +8,18 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
 gem 'twitter-bootstrap-rails'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'haml-rails'
 gem 'unicorn'
 
-gem "bullet", :group => "development"
+group :development do
+  gem 'spring'
+  gem "bullet"
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
@@ -25,11 +29,11 @@ group :development, :test do
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails', :require => false
   gem 'faker'
+  gem 'simplecov', :require => false, :group => :test
 end
 
 group :test do
   gem 'database_cleaner'
 end
 
-gem 'simplecov', :require => false, :group => :test
 gem 'aws-sdk'
