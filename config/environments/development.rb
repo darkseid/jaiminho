@@ -38,4 +38,10 @@ Rails.application.configure do
   # Mailcatcher!
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "0.0.0.0", :port => 1025 }
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.console = true
+    Bullet.add_footer = true
+  end
 end
