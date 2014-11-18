@@ -1,6 +1,11 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+    Bullet.add_footer = true
+  end
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -38,4 +43,5 @@ Rails.application.configure do
   # Mailcatcher!
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "0.0.0.0", :port => 1025 }
+
 end
