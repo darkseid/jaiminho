@@ -57,6 +57,14 @@ describe EmailRequestsController, type: :controller do
         expect(assigns(:email_requests)).to eq [email_request]
       end
     end
+
+    context "with email_template_id and status with empty values" do
+
+      it "returns an array with all email_requests ordered by created_at" do
+        get :index, email_template_id: '', status: ''
+        expect(assigns :email_requests).to eq [email_request_2, email_request_1]
+      end
+    end
   end
 
 end

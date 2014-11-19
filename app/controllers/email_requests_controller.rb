@@ -8,7 +8,10 @@ class EmailRequestsController < ApplicationController
     @email_templates = EmailTemplate.availables
   end
 
+  private
   def filter_params
-    params.permit(:status, :email_template_id)
+    @result ||= params.permit(:status, :email_template_id)
+
+    @result.reject{|field, value| value.blank?}
   end
 end
