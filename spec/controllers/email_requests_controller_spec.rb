@@ -5,6 +5,12 @@ describe EmailRequestsController, type: :controller do
 
     let(:email_request_1) { create(:email_request, created_at: Time.now - 10) }
     let(:email_request_2) { create(:email_request, created_at: Time.now, status: EmailRequest.statuses[:failed]) }
+    let(:available_email_request_status) { EmailRequest.statuses.to_a }
+
+    it "render with email_request_status_list assigned" do
+      get :index
+      expect(assigns :email_request_status_list).to eq available_email_request_status
+    end
 
     context "with populated database" do
 

@@ -5,6 +5,7 @@ class EmailRequestsController < ApplicationController
       email_template_id: filter_params[:email_template_id]
     )
 
+    @email_request_status_list = EmailRequest.available_status
     @email_templates = EmailTemplate.availables
   end
 

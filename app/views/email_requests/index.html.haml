@@ -1,35 +1,28 @@
-- model_class = EmailRequest
+.row
+  .col-sm-12
+    .page-header
+      %h1 Email Requests
 
-.page-header
-  %h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+    .filter
+      =form_tag(email_requests_path, method: :get, class: "form-inline") do
+        =label_tag 'Filter by:'
+        .form-group
+          =select_tag 'status', options_for_select(@email_request_status_list, params[:status]), prompt: '-- choose a status --'
+        .form-group
+          =select_tag 'email_template_id', options_from_collection_for_select(@email_templates, :id, :name, params[:email_template_id]), prompt: '-- choose a template name --'
+        =submit_tag "Go"
 
-.filter
-  %form{action: email_requests_path, method: 'GET'}
-    %label
-      Filter by:
-
-    %select{name: 'status'}
-      %option{value: ''}= '-- choose a status --'
-      - model_class.statuses.each do |status, value|
-        %option{value: value, selected: params[:status] == value.to_s}= status.titleize
-
-    %select{name: 'email_template_id'}
-      %option{value: ''}= '-- choose a template name --'
-      - @email_templates.each do |email_template|
-        %option{value: email_template.id, selected: params[:email_template_id] == email_template.id.to_s}= email_template.name
-
-    %input.js-btn-filter{type: 'submit', value: 'Go'}
-
-
-%table.table.table-striped
-  %thead
-    %tr
-      %th= model_class.human_attribute_name(:email_to)
-      %th= model_class.human_attribute_name(:status)
-      %th= model_class.human_attribute_name(:created_at)
-  %tbody
-    - @email_requests.each do |email_request|
-      %tr
-        %td= email_request.email_to
-        %td= email_request.status.titleize
-        %td=l email_request.created_at
+  .col-sm-12
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Email to
+          %th Status
+          %th Created at
+      %tbody
+        - @email_requests.each do |email_request|
+          %tr
+            %td= email_request.email_to
+            %td= email_request.template_name
+            %td= email_request.status.titleize
+            %td=l email_request.created_at
