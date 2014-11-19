@@ -1,17 +1,16 @@
-- model_class = EmailTemplate
 .page-header
-  %h1=t '.title', :default => model_class.model_name.human.titleize
+  %h1 Email Template
 
 %p
-  %strong= model_class.human_attribute_name(:name) + ':'
+  %strong Name:
   %br
   = @email_template.name
 %p
-  %strong= model_class.human_attribute_name(:subject) + ':'
+  %strong Subject:
   %br
   = @email_template.subject
 %p
-  %strong= model_class.human_attribute_name(:body) + ':'
+  %strong Body:
   %br
   = @email_template.body.html_safe
 
