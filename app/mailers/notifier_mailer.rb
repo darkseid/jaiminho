@@ -5,7 +5,7 @@ class NotifierMailer < ActionMailer::Base
   def notify(email_report_id)
     validate_input email_report_id
 
-    email_report = EmailReport.find email_report_id
+    email_report = EmailRequest.find email_report_id
     email_template = email_report.email_template
 
     renderer = EmailTemplateRender.new(email_template, email_report.data)
