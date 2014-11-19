@@ -1,16 +1,16 @@
 require "rails_helper"
 
-RSpec.describe EmailReportsController, type: :controller do
+describe EmailReportsController, type: :controller do
   describe "GET #index" do
 
-    let(:email_report_1) { create(:email_report, created_at: Time.now - 10) }
-    let(:email_report_2) { create(:email_report, created_at: Time.now, status: EmailReport.statuses[:failed]) }
+    let(:email_request_1) { create(:email_request, created_at: Time.now - 10) }
+    let(:email_request_2) { create(:email_request, created_at: Time.now, status: EmailRequest.statuses[:failed]) }
 
     context "with populated database" do
 
       before do
-        allow(EmailReport).to receive(:where) \
-          .and_return [email_report_1, email_report_2]
+        allow(EmailRequest).to receive(:where) \
+          .and_return [email_request_1, email_request_2]
       end
 
       it "render :index template" do
@@ -22,39 +22,39 @@ RSpec.describe EmailReportsController, type: :controller do
     context "without params status and template_name" do
 
       before do
-        allow(EmailReport).to receive(:where) \
-          .and_return [email_report_1, email_report_2]
+        allow(EmailRequest).to receive(:where) \
+          .and_return [email_request_1, email_request_2]
       end
 
-      it "render an array with email_reports ordered desc by created_at" do
+      it "render an array with email_requests ordered desc by created_at" do
         get :index
-        expect(assigns :email_reports).to eq [email_report_2, email_report_1]
+        expect(assigns :email_requests).to eq [email_request_2, email_request_1]
       end
     end
 
     context "with status param given" do
       before do
-        @email_report = create(:email_report)
+        @email_request = create(:email_request)
       end
 
-      it "returns only email_reports with success status" do
-        get :index, status: EmailReport.statuses[:success]
-        expect(assigns(:email_reports)).to eq [@email_report]
+      it "returns only email_requests with success status" do
+        get :index, status: EmailRequest.statuses[:success]
+        expect(assigns(:email_requests)).to eq [@email_request]
       end
 
-      it "does not returns any email_report with non-valid status given" do
+      it "does not returns any email_request with non-valid status given" do
         get :index, status: 99
-        expect(assigns(:email_reports)).to eq []
+        expect(assigns(:email_requests)).to eq []
       end
     end
 
     context "with email_template_id param given" do
-      let(:email_report){ create(:email_report) }
-      let(:email_template){ email_report.email_template }
+      let(:email_request){ create(:email_request) }
+      let(:email_template){ email_request.email_template }
 
-      it "return only email_reports with given email_template_id" do
+      it "return only email_requests with given email_template_id" do
         get :index, email_template_id: email_template.id
-        expect(assigns(:email_reports)).to eq [email_report]
+        expect(assigns(:email_requests)).to eq [email_request]
       end
     end
   end

@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141118200805) do
+ActiveRecord::Schema.define(version: 20141119170247) do
 
-  create_table "email_reports", force: true do |t|
+  create_table "email_requests", force: true do |t|
     t.string   "email_to"
     t.integer  "email_template_id",             null: false
     t.text     "data"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20141118200805) do
     t.string   "bcc"
   end
 
-  add_index "email_reports", ["status", "email_template_id", "created_at"], name: "idx_st_email_t_created", using: :btree
+  add_index "email_requests", ["status", "email_template_id", "created_at"], name: "idx_st_email_t_created", using: :btree
 
   create_table "email_templates", force: true do |t|
     t.string   "name"

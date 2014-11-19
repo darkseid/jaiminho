@@ -4,13 +4,13 @@ RSpec.describe NotifierMailer, :type => :mailer do
 
   describe ".notify" do
 
-    context "email_report_id is required" do
+    context "email_request_id is required" do
 
-      it "throws an ArgumentError if email_report_id is not informed" do
+      it "throws an ArgumentError if email_request_id is not informed" do
         expect { NotifierMailer.notify(nil) }.to raise_error ArgumentError
       end
 
-      it "does not throw an ArgumentError if email_report_id is informed" do
+      it "does not throw an ArgumentError if email_request_id is informed" do
         expect { NotifierMailer.notify(9999999) }.to raise_error ActiveRecord::RecordNotFound
       end
 
@@ -22,14 +22,14 @@ RSpec.describe NotifierMailer, :type => :mailer do
         build :email_template, name: "template_name_test", body: "<h1><%= data[:test] %></h1>", subject: "Testing, <%= data[:subject] %>"
       }
 
-      let(:email_report) {
-        build :email_report, id: 0, email_template: email_template, data: {test: "Text", subject: "User"}, email_to: ["email@test.com", "test@email.com"]
+      let(:email_request) {
+        build :email_request, id: 0, email_template: email_template, data: {test: "Text", subject: "User"}, email_to: ["email@test.com", "test@email.com"]
       }
 
       before :example do
         allow(EmailTemplate).to receive(:find_by_name!).and_return email_template
-        allow(EmailReport).to receive(:find).and_return email_report
-        @email = NotifierMailer.notify email_report.id
+        allow(EmailRequest).to receive(:find).and_return email_request
+        @email = NotifierMailer.notify email_request.id
       end
 
       it { expect(ActionMailer::Base.deliveries).not_to be_empty }
@@ -50,8 +50,8 @@ RSpec.describe NotifierMailer, :type => :mailer do
         expect(@email.to).to eq ["email@test.com", "test@email.com"]
       end
 
-      it "change email_report status when email is sent" do
-        expect(email_report.status).to match "success"
+      it "change email_request status when email is sent" do
+        expect(email_request.status).to match "success"
       end
 
     end

@@ -1,4 +1,4 @@
-class EmailReport < ActiveRecord::Base
+class EmailRequest < ActiveRecord::Base
 
   belongs_to :email_template
 
@@ -17,7 +17,7 @@ class EmailReport < ActiveRecord::Base
 
   private
   def self.build_criteria(criterions={})
-    criterions.reject{|field, value| value.nil?} 
+    criterions.reject{|field, value| value.nil?}
   end
 
 end
