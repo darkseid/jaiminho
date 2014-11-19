@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe EmailReportsController, type: :controller do
+describe EmailRequestsController, type: :controller do
   describe "GET #index" do
 
     let(:email_request_1) { create(:email_request, created_at: Time.now - 10) }
