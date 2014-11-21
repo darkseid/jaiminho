@@ -9,20 +9,20 @@ module Api
     private
 
     def create_email_request
-      template_name = email_template_params[:template_name]
-      email_template = EmailTemplate.find_by_name template_name
-      email_request_params[:email_template] = email_template
-      EmailRequest.create email_request_params
+      EmailRequest.create({
+        email_to: email_request_params[:to],
+        email_template_id: email_request_params[:template_id],
+        data: email_request_params[:data],
+        reply_to: email_request_params[:reply_to],
+        cc: email_request_params[:cc],
+        bcc: email_request_params[:bcc]
+      })
     end
 
     def email_request_params
-      permitted_params = [:email_to, :template_name, :data,
-                          :reply_to, :cc, :bcc]
-      params.require(:email_request).permit permitted_params
-    end
+      permitted_params = [:to, :template_id, :data, :reply_to, :cc, :bcc]
 
-    def email_template_params
-      params.require(:email_template).permit :template_name
+      @email_request_params ||= params.require(:email_request).permit permitted_params
     end
 
     def send_job(email_request_id)

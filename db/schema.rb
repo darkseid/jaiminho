@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20141119170247) do
 
   create_table "email_requests", force: true do |t|
     t.string   "email_to"
-    t.integer  "email_template_id",             null: false
     t.text     "data"
     t.integer  "status",            default: 0, null: false
     t.datetime "created_at"
@@ -23,6 +22,7 @@ ActiveRecord::Schema.define(version: 20141119170247) do
     t.string   "reply_to"
     t.string   "cc"
     t.string   "bcc"
+    t.integer  "email_template_id",             null: false
   end
 
   add_index "email_requests", ["status", "email_template_id", "created_at"], name: "idx_st_email_t_created", using: :btree
