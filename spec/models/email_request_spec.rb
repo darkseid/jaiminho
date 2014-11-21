@@ -9,8 +9,9 @@ describe EmailRequest, type: :model do
   end
 
   describe "validations" do
+    it { should belong_to :email_template }
     it { should validate_presence_of :email_to }
-    it { should validate_presence_of :email_template }
+    it { should validate_presence_of :email_template_id }
     it { should validate_presence_of :status }
   end
 
