@@ -8,17 +8,21 @@ RSpec.describe Api::EmailsController, type: :controller do
       let(:email_request) { build(:email_request) }
 
       before do
-        allow_any_instance_of(Api::EmailsController).to \
-          receive(:create_email_request).and_return(email_request)
-        post :create, email_request: email_request.attributes, format: :json
+        params = {
+          "to" => "rcuba@estantevirtual.com.br",
+          "template_id" => 1,
+          "data" => {"name" => "Raphael Cuba"}
+        }
+        allow_any_instance_of(EmailRequest).to receive(:save).and_return true
+        post :create, email_request: params, format: :json
       end
 
       it "returns http success" do
         expect(response).to be_success
       end
 
-      it "save email report" do
-        expect(assigns(:email_request).save).to eq(true)
+      it "builds the email_request" do
+        expect(assigns(:email_request).email_to).to eq "rcuba@estantevirtual.com.br"
       end
 
       it "render create template" do
