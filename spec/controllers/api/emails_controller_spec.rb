@@ -3,9 +3,10 @@ require "rails_helper"
 RSpec.describe Api::EmailsController, type: :controller do
 
   describe "POST create" do
-    context "with valid params" do
 
-      let(:email_request) { build(:email_request) }
+    context "with params is valid" do
+
+      let(:email_request) { build :email_request }
 
       before do
         params = {
@@ -31,31 +32,24 @@ RSpec.describe Api::EmailsController, type: :controller do
 
     end
 
-    context "with invalid params" do
+    context "with params is invalid" do
 
-      let(:email_request) { build(:invalid_email_request) }
-      let(:email_request_unexisting_template) do
-        build(:email_request, email_template: nil)
+      let(:email_request) { attributes_for :invalid_email_request }
+
+      before do
+        allow_any_instance_of(EmailRequest).to receive(:save).and_return false
+        post :create, email_request: email_request, format: :json
       end
 
-      it "render template error" do
-        allow_any_instance_of(Api::EmailsController).to \
-          receive(:create_email_request).and_return(email_request)
-
-        post :create, email_request: email_request.attributes, format: :json
-
+      it "renders error template" do
         expect(response).to render_template :error
       end
 
-      it "render template error with unexisting email_template_id" do
-        allow_any_instance_of(Api::EmailsController).to \
-          receive(:create_email_request) \
-          .and_return(email_request_unexisting_template)
-
-        post :create, email_request: email_request_unexisting_template.attributes,
-                      format: :json
-        expect(response).to render_template :error
+      it "return http status code error" do
+        expect(response).to have_http_status 400
       end
+
     end
   end
+
 end
