@@ -1,3 +1,5 @@
+require_relative "../lib/api_constraints"
+
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
@@ -10,7 +12,9 @@ Rails.application.routes.draw do
   resources :email_requests, only: [:index]
 
   namespace :api, defaults: { format: 'json' } do
-    resources :emails
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+      resources :email_requests, only: [:create]
+    end
   end
 
 end
