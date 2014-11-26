@@ -3,13 +3,19 @@ module Api
     class EmailRequestsController < Api::ApiController
 
       def create
-        @email_request = build_email_request
-        if @email_request.save
-          job_id = send_job @email_request.id
-          head :created, location: @email_request, job_id: job_id
-        else
-          head :bad_request, message: "Could not save email report."
-       end
+        begin
+          @email_request = build_email_request
+          if @email_request.save
+            job_id = send_job @email_request.id
+            head :created, location: @email_request, job_id: job_id
+          else
+            head :bad_request, message: "Could not save email report."
+         end
+        rescue ActionController::ParameterMissing
+          head :bad_request, message: "missing parameters."
+        rescue Exception
+          head :internal_server_error
+        end
       end
 
       private

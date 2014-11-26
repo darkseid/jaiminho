@@ -46,12 +46,14 @@ module Api
           end
         end
 
+        context "without params" do
+          before do
+            post :create, email_request: nil, format: :json
           end
 
           it "return http status code error" do
             expect(response).to have_http_status 400
           end
-
         end
       end
 
