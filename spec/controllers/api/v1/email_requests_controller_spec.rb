@@ -4,9 +4,7 @@ module Api
     describe EmailRequestsController, type: :controller do
 
       describe "POST create" do
-
         context "with valid params" do
-
           let(:email_request) { build :email_request }
 
           before do
@@ -27,23 +25,27 @@ module Api
             expect(assigns(:email_request).email_to).to eq "rcuba@estantevirtual.com.br"
           end
 
-          it "render create template" do
-            expect(response).to render_template :create
+          it "returns created status code (201)" do
+            expect(response).to have_http_status(:created)
           end
-
         end
 
         context "with invalid params" do
-
-          let(:email_request) { attributes_for :invalid_email_request }
-
           before do
+            params = {
+              "email_to" => nil,
+              "template" => 1,
+              "data" => {"name" => "Raphael Cuba"}
+            }
             allow_any_instance_of(EmailRequest).to receive(:save).and_return false
-            post :create, email_request: email_request, format: :json
+            post :create, email_request: params, format: :json
           end
 
-          it "renders error template" do
-            expect(response).to render_template :error
+          it "return http status code error" do
+            expect(response).to have_http_status 400
+          end
+        end
+
           end
 
           it "return http status code error" do

@@ -1,15 +1,18 @@
 module Api
   module V1
-    class EmailRequestsController < ApiController
+    class EmailRequestsController < Api::ApiController
 
       def create
         @email_request = build_email_request
-        error 400, "Could not save email report." unless @email_request.save
-        @job_id = send_job @email_request.id
+        if @email_request.save
+          job_id = send_job @email_request.id
+          head :created, location: @email_request, job_id: job_id
+        else
+          head :bad_request, message: "Could not save email report."
+       end
       end
 
       private
-
       def build_email_request
         EmailRequest.new({
           email_to: email_request_params[:to],
