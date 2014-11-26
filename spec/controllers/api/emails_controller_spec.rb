@@ -4,7 +4,7 @@ RSpec.describe Api::EmailsController, type: :controller do
 
   describe "POST create" do
 
-    context "with params is valid" do
+    context "with valid params" do
 
       let(:email_request) { build :email_request }
 
@@ -32,7 +32,7 @@ RSpec.describe Api::EmailsController, type: :controller do
 
     end
 
-    context "with params is invalid" do
+    context "with invalid params" do
 
       let(:email_request) { attributes_for :invalid_email_request }
 
