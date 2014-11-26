@@ -1,9 +1,10 @@
 module Api
   class EmailsController < Api::ApiController
+
     def create
       @email_request = build_email_request
       error 400, "Could not save email report." unless @email_request.save
-      @job_id = send_job(@email_request.id)
+      @job_id = send_job @email_request.id
     end
 
     private
@@ -28,5 +29,6 @@ module Api
     def send_job(email_request_id)
       NotifyWorker.perform_async email_request_id
     end
+
   end
 end
