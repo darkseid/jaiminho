@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :email_requests, only: [:index]
 
   namespace :api, defaults: { format: 'json' } do
-    resources :emails
+    scope module: :v1 do
+      resources :email_requests, only: [:create]
+    end
   end
 
 end
